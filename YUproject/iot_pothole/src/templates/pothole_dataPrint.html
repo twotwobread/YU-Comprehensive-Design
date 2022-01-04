@@ -1,0 +1,85 @@
+<!--
+    #
+    # filename : pothole_server.html
+    # 검색한 지역의 포트홀 데이터를 띄우는 웹
+    # 너무 가라가 심해서 공부 후 업데이트 예정
+    # author : 이수영 ( 2021.12.28 )
+    # - version 1.0 (2021.12.28)
+    #   div의 id가 바뀌지 않으면 여러 맵을 띄울 수 없음.
+    #   그래서 map을 임의로 여러개 만들고 var를 이용하여 증가하면서 넣는 방법을 사용
+    #   공부 후 업데이트 필요
+    #   
+--> 
+<!DOCTYPE html> <html>
+    <head> 
+        <title>
+        GNSS Application with Kakao Map 
+        </title>
+        <meta charset = "utf-8"/> 
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3fb02947329abea5bae860500e4bdfc0"></script>
+        <style>
+        .overlaybox {position:relative;width:1000px;height:400px; padding:15px 10px;}
+        .overlaybox .boxtitle {color:#000;font-size:16px;background-size: 100px; background-color: #fff; font-weight:bold; margin-bottom:8px;}
+        table {
+        width: 100%;
+        border: 1px solid #444444;
+        }
+        th, td {
+        border: 1px solid #444444;
+        }
+        </style>
+    </head>
+<body></body>
+<div>
+    <h1> POTHOLE DATA RESULT <h1>
+</div>
+<div>
+    <script>var count=0;</script>
+    {% for i in data %} <!--가져온 데이터를 이용하여 for loop -->
+        <div id="map0" style="width:70%;height:800px;"></div>
+        <div id="map1" style="width:70%;height:800px;"></div>
+        <div id="map2" style="width:70%;height:800px;"></div>
+        <div id="map3" style="width:70%;height:800px;"></div>
+        <div id="map4" style="width:70%;height:800px;"></div>
+        <div id="map5" style="width:70%;height:800px;"></div>
+        <div id="map6" style="width:70%;height:800px;"></div>
+        <div id="map7" style="width:70%;height:800px;"></div>
+        <div id="map8" style="width:70%;height:800px;"></div>
+        <div id="map9" style="width:70%;height:800px;"></div>
+        <div id="map10" style="width:70%;height:800px;"></div>
+            <script>
+                var addr = "{{i[3]}}"; // address
+                var content = '<div class="overlaybox">'+ // overlaybox를 표시할때 안의 내용
+                '   <div class="boxtitle">'+addr+'</div>'+
+                '   <div><img src="{{url_for("static", filename=i[0])}}"></div>'+
+                '</div>';
+                var id_name = "map"+count.toString(); // id를 계속 바꾸기 위함
+                count+=1;
+                var lat = "{{i[1]|float}}";
+                var lng = "{{i[2]|float}}";
+                var mapContainer = document.getElementById(id_name), // 지도를 표시할 div 
+                    mapOption = { 
+                        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+                        level: 2 // 지도의 확대 레벨
+                    };
+                var position = new kakao.maps.LatLng(lat, lng); // overlay 좌표
+                var markerPosition = new kakao.maps.LatLng(lat, lng); // marker 좌표
+                var marker = new kakao.maps.Marker({ // marker 객체 생성
+                    position: markerPosition
+                });
+
+                var map = new kakao.maps.Map(mapContainer, mapOption);// map 객체 생성
+                var customOverlay = new kakao.maps.CustomOverlay({// overlay 객체 생성
+                    position: position,
+                    content: content,
+                    xAnchor: 0.3,
+                    yAnchor: 0.91
+                });
+                customOverlay.setMap(map); 
+                
+                marker.setMap(map);
+            </script>
+    {% endfor %}
+</div>
+</body>
+</html> 
