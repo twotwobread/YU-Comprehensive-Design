@@ -1,0 +1,82 @@
+<!--
+    #
+    # filename : pothole_server.html
+    # 초기 원하는 지역의 포트홀 데이터를 보기 위해 검색하는 웹
+    # author : 이수영 ( 2021.12.27 )
+    # - version 1.0 (2021.12.27) 
+    #   
+--> 
+<!DOCTYPE html>
+ <html lang="ko">
+    <head> 
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>레이아웃 잡기</title>
+        <title>정렬</title>
+        <title>이미지</title>
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+        <link rel="stylesheet" href="style.css">
+        <title></title>
+        <style>
+            header {
+              background: lightgray;
+              height: 300px;
+            }
+            main {
+              background: #f2f4f7;
+              min-height: 200px;
+            }
+            footer {
+              background: darkgray;
+              height: 500px;
+            }
+          </style>
+
+
+        <title>
+        GNSS Application with Kakao Map 
+        </title>
+        <meta charset = "utf-8"/> 
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=733c9bf128439e2d6bf3d6770f6cc8e2"></script>
+
+    </head>
+    
+    <!--div id="map" style="width:100%;height:350px;"></div-->
+    
+    <body>
+        <header>
+            <span style="
+             font-style: italic;
+             font-weight: bold;
+             font-size: 100px;
+             line-height:5em;
+             color:black;
+             ">
+             <p
+             style="text-align:center;">
+             Pothole location imformation
+            </p>
+             </span>
+        </header>
+
+        <main>
+        <h1> <br>
+            <form action="/result" method="post">
+                광역시/시: <input type="text" name="1"><br>
+                구/면: <input type="text" name="2"><br>
+                읍/리: <input type="text" name="3"><br>
+                <input type="submit" value="search" >
+            </form>
+        </h1>
+        </main>
+
+
+        <footer>
+          <img src="{{url_for('static', filename='KakaoTalk_20211229_182017805.jpg')}}"
+           width="100%"
+           height="500">
+          </footer>
+    </body>
+ 
+</html> 
