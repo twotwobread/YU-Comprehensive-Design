@@ -36,9 +36,9 @@
 <div>
     <script>var count=0;</script>
     {% for i in data %} <!--가져온 데이터를 이용하여 for loop -->
-        <div id="map0" style="width:70%;height:800px;"></div>
-        <div id="map1" style="width:70%;height:800px;"></div>
-        <div id="map2" style="width:70%;height:800px;"></div>
+        <div id="map0" style="width:70%;height:800px;"></div> <!-- 주소를 이용해서 kakao map을 띄우려면 먼저 선언된 map id가 필요함. -->
+        <div id="map1" style="width:70%;height:800px;"></div> <!-- 근데 이것들을 동적으로 생산이 안되어서 먼저 10개로 선언을 했음 -->
+        <div id="map2" style="width:70%;height:800px;"></div> <!--  한계점 존재. -->
         <div id="map3" style="width:70%;height:800px;"></div>
         <div id="map4" style="width:70%;height:800px;"></div>
         <div id="map5" style="width:70%;height:800px;"></div>
@@ -47,7 +47,7 @@
         <div id="map8" style="width:70%;height:800px;"></div>
         <div id="map9" style="width:70%;height:800px;"></div>
         <div id="map10" style="width:70%;height:800px;"></div>
-            <script>
+            <script> // 자바 스크립트에서는 동적으로 만들 수 있어서 map id를 바꿔가면서 출력.
                 var addr = "{{i[3]}}"; // address
                 var content = '<div class="overlaybox">'+ // overlaybox를 표시할때 안의 내용
                 '   <div class="boxtitle">'+addr+'</div>'+
@@ -63,13 +63,13 @@
                         level: 2 // 지도의 확대 레벨
                     };
                 var position = new kakao.maps.LatLng(lat, lng); // overlay 좌표
-                var markerPosition = new kakao.maps.LatLng(lat, lng); // marker 좌표
-                var marker = new kakao.maps.Marker({ // marker 객체 생성
+                var markerPosition = new kakao.maps.LatLng(lat, lng); // marker 좌표, 파란색으로 찍어주는 것
+                var marker = new kakao.maps.Marker({ // marker 객체 생성, 객체 생성 시 좌표와 함꼐 생성해서 그 위치에 생기게 하는 것.
                     position: markerPosition
                 });
 
-                var map = new kakao.maps.Map(mapContainer, mapOption);// map 객체 생성
-                var customOverlay = new kakao.maps.CustomOverlay({// overlay 객체 생성
+                var map = new kakao.maps.Map(mapContainer, mapOption);// map 객체 생성, 맵 객체 생성할 때, 지도가 들어가는 컨테이너랑 지도의 중심좌표, 확대 레벨을 넣어서 생성.
+                var customOverlay = new kakao.maps.CustomOverlay({// overlay 객체 생성, 포트홀 이미지와 주소를 넣을 수 있게 하는 객체
                     position: position,
                     content: content,
                     xAnchor: 0.3,
@@ -79,7 +79,7 @@
                 
                 marker.setMap(map);
             </script>
-    {% endfor %}
+    {% endfor %} <!-- for 문이 종료되는 곳 -->
 </div>
 </body>
 </html> 
