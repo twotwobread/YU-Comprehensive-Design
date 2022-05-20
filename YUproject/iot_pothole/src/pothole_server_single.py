@@ -29,10 +29,10 @@ from datetime import datetime
 import pymysql
 from collections import deque
 
-IP="165.229.185.243"
-API_KEY = "a00649b953ccf10495e69f5fbae7cd73"
+IP="IP"
+API_KEY = "KEY"
 KL = PyKakao.KakaoLocal(API_KEY)
-CONN_DB = pymysql.connect(host='127.0.0.1', user='root', password='antl..', db='pothole', charset='utf8')
+CONN_DB = pymysql.connect(host='127.0.0.1', user='root', password='password', db='pothole', charset='utf8')
 CUR_DB = CONN_DB.cursor()
 LOCK = threading.Lock()
 
