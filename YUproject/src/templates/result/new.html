@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+{% block content %}
+    <div class="container my-3">
+        <a href="/"><h3>검색화면 바로가기</h3></a>
+    </div>
+    {% if data %}
+        <table class="table">
+            <th>No</th>
+            <th>주소</th>
+            <th>탐지 횟수</th>
+            <th>삭제</th>
+            {% for i in range(data|length)%}
+                <tr class="thead-dark">
+                    <td>{{i+1}}</td>
+                    <td><a href="/result/details/{{ data[i][0] }}/{{ data[i][1] }}/{{ data[i][2] }}/{{ data[i][3] }}/">{{ data[i][3] }}</a></td>
+                    <td>{{data[i][4]}}</td>
+                    <td>
+                        <form action="/delete/{{data[i][0]}}" method="post">
+                            <div class='button'>
+                                <button type="submit">삭제</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>해당 지역에는 포트홀이 존재하지 않습니다.</p>
+    {% endif %}
+{% endblock %}
+<!--details/{{ pothole_data.img_path }}/{{ pothole_data.latitude }}/{{ pothole_data.longitude }}/{{ pothole_data.addr }}/-->
